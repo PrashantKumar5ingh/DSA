@@ -17,10 +17,16 @@ public class Question {
     }
     public static void main(String[] args) {
         
-        try(Scanner sc = new Scanner(new BufferedInputStream(new FileInputStream("input.txt"))));
-        int arr[] = getArrayInput();
-        Class<?> clazz = Class.forName(className);
-        Object obj = clazz.getDeclaredConstructor().newInstance();
-        java.lang.reflect.Method method = clazz.getMethod("generate", int.class);
+        try(Scanner sc = new Scanner(new BufferedInputStream(new FileInputStream("input.txt")))){
+            int arr[] = getArrayInput(sc);
+            String className = sc.next();
+            Class<?> clazz = Class.forName(className);
+            Object obj = clazz.getDeclaredConstructor().newInstance();
+            java.lang.reflect.Method method = clazz.getMethod("getNextPermutation", int.class);
+            method.invoke(obj, arr);
+            for(int x : arr){
+                System.out.print(x);
+            }
+        }
     }
 }
